@@ -1,0 +1,20 @@
+version: "3"
+services:
+  backend:
+    container_name: mangaBackend
+    environment:
+      - DATABASE_URL=mongodb://mongo/myManga
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: "npm start"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+    volumes:
+      - .:/app
+      - /app/node_modules
+  mongo:
+    container_name: mangaDB
+    image: mongo
